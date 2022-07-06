@@ -6,9 +6,7 @@ public class Hand : MonoBehaviour
 	[field: SerializeField] GameObject     CardPrefab           { get; set; }
 	[field: SerializeField] int            HandSize             { get; set; }
 	[field: SerializeField] float          HandWidth            { get; set; }
-	[field: SerializeField] float          CardMovementDuration { get; set; }
 	[field: SerializeField] float          CardMovementInterval { get; set; }
-	[field: SerializeField] AnimationCurve CardMovementCurve    { get; set; }
 	[field: SerializeField] Vector3        CardDrawPosition     { get; set; }
 	[field: SerializeField] float          CardFanningFactor    { get; set; }
 	[field: SerializeField] float          CardRaiseFactor      { get; set; }
@@ -29,13 +27,13 @@ public class Hand : MonoBehaviour
 
 			card.transform.localPosition = CardDrawPosition;
 
-			var targetPosition = new Vector3(i * cardSpacing - leftmostCardPosition,
-											 CardFanCurve.Evaluate(i / (HandSize - 1f)) * CardRaiseFactor,
-											 -i);
+			card.PositionInHand = new(i * cardSpacing - leftmostCardPosition,
+									  CardFanCurve.Evaluate(i / (HandSize - 1f)) * CardRaiseFactor,
+									  -i);
 
-			var targetRotation = Quaternion.Euler(new(0, 0, -targetPosition.x * CardFanningFactor));
+			card.RotationInHand = Quaternion.Euler(new(0, 0, -card.PositionInHand.x * CardFanningFactor));
 
-			card.MoveToTarget(targetPosition, targetRotation, CardMovementDuration, CardMovementCurve);
+			card.Draw();
 
 			yield return new WaitForSeconds(CardMovementInterval);
 		}

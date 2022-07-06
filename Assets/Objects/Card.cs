@@ -1,5 +1,6 @@
 using System.Collections;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class Card : MonoBehaviour
@@ -9,17 +10,61 @@ public class Card : MonoBehaviour
 	[field: SerializeField] Texture CardArt   { get; set; }
 	[field: SerializeField] Texture CardBack  { get; set; }
 
+	[field: SerializeField] float          DrawMovementDuration       { get; set; }
+	[field: SerializeField] AnimationCurve DrawMovementCurve          { get; set; }
+	[field: SerializeField] float          DiscardMovementDuration    { get; set; }
+	[field: SerializeField] AnimationCurve DiscardMovementCurve       { get; set; }
+	[field: SerializeField] float          MouseEnterMovementDuration { get; set; }
+	[field: SerializeField] AnimationCurve MouseEnterMovementCurve    { get; set; }
+	[field: SerializeField] float          MouseExitMovementDuration  { get; set; }
+	[field: SerializeField] AnimationCurve MouseExitMovementCurve     { get; set; }
+
 	[field: SerializeField] TextMeshPro    TitleTextObject { get; set; }
 	[field: SerializeField] TextMeshPro    BodyTextObject  { get; set; }
 	[field: SerializeField] SpriteRenderer CardArtObject   { get; set; }
 	[field: SerializeField] SpriteRenderer CardBackObject  { get; set; }
 
-	public void MoveToTarget(Vector3        targetPosition,
-							 Quaternion     targetRotation,
-							 float          movementDuration,
-							 AnimationCurve movementCurve)
+	public Vector3    PositionInHand { get; set; }
+	public Quaternion RotationInHand { get; set; }
+
+	IEnumerator StepTowardTargetCoroutine { get; set; }
+
+	void OnMouseEnter()
 	{
-		StartCoroutine(StepTowardTarget(targetPosition, targetRotation, movementDuration, movementCurve));
+		//TODO: expose to inspector
+		var dy = new Vector3(0, 50, -100);
+		MoveToTarget(PositionInHand + dy, quaternion.identity, MouseEnterMovementDuration, MouseEnterMovementCurve);
+	}
+
+	void OnMouseExit()
+	{
+		MoveToTarget(PositionInHand, RotationInHand, MouseExitMovementDuration, MouseExitMovementCurve);
+	}
+
+	public void Draw()
+	{
+		//TODO: draw pile location?
+		MoveToTarget(PositionInHand, RotationInHand, DrawMovementDuration, DrawMovementCurve);
+	}
+
+	public void Discard()
+	{
+		//TODO: discard pile location
+		MoveToTarget(PositionInHand, RotationInHand, DiscardMovementDuration, DiscardMovementCurve);
+	}
+
+	void MoveToTarget(Vector3        targetPosition,
+					  Quaternion     targetRotation,
+					  float          movementDuration,
+					  AnimationCurve movementCurve)
+	{
+		if (StepTowardTargetCoroutine != null)
+		{
+			StopCoroutine(StepTowardTargetCoroutine);
+		}
+
+		StepTowardTargetCoroutine = StepTowardTarget(targetPosition, targetRotation, movementDuration, movementCurve);
+		StartCoroutine(StepTowardTargetCoroutine);
 	}
 
 	IEnumerator StepTowardTarget(Vector3        targetPosition,
