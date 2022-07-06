@@ -25,17 +25,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1881586755457552434}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8113264320531414937}
+  m_Father: {fileID: 6612311584241330398}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -35}
   m_SizeDelta: {x: 100, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!23 &8127470125771271215
@@ -196,12 +196,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4455738742504344083}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8113264320531414937}
+  m_Father: {fileID: 6612311584241330398}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -286,17 +286,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6205030184817556278}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8113264320531414937}
+  m_Father: {fileID: 6612311584241330398}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 35}
   m_SizeDelta: {x: 100, y: 20}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!23 &9099021114405718603
@@ -433,6 +433,46 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 9099021114405718603}
   m_maskType: 0
+--- !u!1 &6771684281612597842
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6612311584241330398}
+  m_Layer: 0
+  m_Name: card graphics
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6612311584241330398
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6771684281612597842}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9080050928717136781}
+  - {fileID: 5313911489004411128}
+  - {fileID: 9187144805889023387}
+  - {fileID: 5153102713331954182}
+  m_Father: {fileID: 8113264320531414937}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &6813965812772594821
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,17 +497,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6813965812772594821}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 90, y: 90, z: 90}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 8113264320531414937}
+  m_Father: {fileID: 6612311584241330398}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -20}
+  m_AnchoredPosition: {x: 0, y: 15}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!212 &2402509694787319349
@@ -552,10 +592,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9080050928717136781}
-  - {fileID: 5313911489004411128}
-  - {fileID: 9187144805889023387}
-  - {fileID: 5153102713331954182}
+  - {fileID: 6612311584241330398}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -580,8 +617,8 @@ MonoBehaviour:
   <BodyText>k__BackingField: Card body text.
   <CardArt>k__BackingField: {fileID: 2800000, guid: 7e130f67f15a84847b274681d5d4271b, type: 3}
   <CardBack>k__BackingField: {fileID: 2800000, guid: bb722b95526122a4a9852e8ae4326457, type: 3}
-  <DrawMovementDuration>k__BackingField: 0.5
-  <DrawMovementCurve>k__BackingField:
+  <DrawAnimationDuration>k__BackingField: 0.5
+  <DrawAnimationCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -605,8 +642,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <DiscardMovementDuration>k__BackingField: 0.2
-  <DiscardMovementCurve>k__BackingField:
+  <DiscardAnimationDuration>k__BackingField: 0.1
+  <DiscardAnimationCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -630,8 +667,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <MouseEnterMovementDuration>k__BackingField: 0.2
-  <MouseEnterMovementCurve>k__BackingField:
+  <MouseEnterAnimationDuration>k__BackingField: 0.2
+  <MouseEnterAnimationCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -655,8 +692,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  <MouseExitMovementDuration>k__BackingField: 0.1
-  <MouseExitMovementCurve>k__BackingField:
+  <MouseExitAnimationDuration>k__BackingField: 0.1
+  <MouseExitAnimationCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -680,6 +717,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  <DrawPileOffset>k__BackingField: {x: -500, y: 100, z: 0}
+  <DiscardPileOffset>k__BackingField: {x: 500, y: 100, z: 0}
+  <CardGraphicsObject>k__BackingField: {fileID: 6771684281612597842}
   <TitleTextObject>k__BackingField: {fileID: 1197216295039416659}
   <BodyTextObject>k__BackingField: {fileID: 8471782189167250741}
   <CardArtObject>k__BackingField: {fileID: 2402509694787319349}
@@ -708,5 +748,5 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 100, y: 170}
+  m_Size: {x: 0.0001, y: 200}
   m_EdgeRadius: 0

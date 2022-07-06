@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-	[field: SerializeField] GameObject     CardPrefab           { get; set; }
-	[field: SerializeField] int            HandSize             { get; set; }
-	[field: SerializeField] float          HandWidth            { get; set; }
-	[field: SerializeField] float          CardMovementInterval { get; set; }
-	[field: SerializeField] Vector3        CardDrawPosition     { get; set; }
-	[field: SerializeField] float          CardFanningFactor    { get; set; }
-	[field: SerializeField] float          CardRaiseFactor      { get; set; }
-	[field: SerializeField] AnimationCurve CardFanCurve         { get; set; }
+	[field: SerializeField] GameObject     CardPrefab            { get; set; }
+	[field: SerializeField] int            HandSize              { get; set; }
+	[field: SerializeField] float          HandWidth             { get; set; }
+	[field: SerializeField] float          CardMovementInterval  { get; set; }
+	[field: SerializeField] float          CardFanningFactor     { get; set; }
+	[field: SerializeField] float          CardRaiseFactor       { get; set; }
+	[field: SerializeField] AnimationCurve CardFanCurve          { get; set; }
+	[field: SerializeField] float          CardEdgeColliderWidth { get; set; }
 
 	void Start()
 	{
@@ -25,13 +25,29 @@ public class Hand : MonoBehaviour
 		{
 			var card = Instantiate(CardPrefab, transform).GetComponent<Card>();
 
-			card.transform.localPosition = CardDrawPosition;
+			var t = card.transform;
 
-			card.PositionInHand = new(i * cardSpacing - leftmostCardPosition,
-									  CardFanCurve.Evaluate(i / (HandSize - 1f)) * CardRaiseFactor,
-									  -i);
+			t.localPosition = new(i * cardSpacing - leftmostCardPosition,
+								  CardFanCurve.Evaluate(i / (HandSize - 1f)) * CardRaiseFactor,
+								  -i);
 
-			card.RotationInHand = Quaternion.Euler(new(0, 0, -card.PositionInHand.x * CardFanningFactor));
+			card.RotationInHand = Quaternion.Euler(new(0, 0, -t.localPosition.x * CardFanningFactor));
+
+			var c = card.GetComponent<BoxCollider2D>();
+			if (i == 0)
+			{
+				c.size   = new(CardEdgeColliderWidth, c.size.y);
+				c.offset = new(-(CardEdgeColliderWidth - cardSpacing) / 2f, c.offset.y);
+			}
+			else if (i == HandSize - 1)
+			{
+				c.size   = new(CardEdgeColliderWidth, c.size.y);
+				c.offset = new((CardEdgeColliderWidth - cardSpacing) / 2f, c.offset.y);
+			}
+			else
+			{
+				c.size = new(cardSpacing, c.size.y);
+			}
 
 			card.Draw();
 

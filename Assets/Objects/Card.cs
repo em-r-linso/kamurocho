@@ -10,69 +10,71 @@ public class Card : MonoBehaviour
 	[field: SerializeField] Texture CardArt   { get; set; }
 	[field: SerializeField] Texture CardBack  { get; set; }
 
-	[field: SerializeField] float          DrawMovementDuration       { get; set; }
-	[field: SerializeField] AnimationCurve DrawMovementCurve          { get; set; }
-	[field: SerializeField] float          DiscardMovementDuration    { get; set; }
-	[field: SerializeField] AnimationCurve DiscardMovementCurve       { get; set; }
-	[field: SerializeField] float          MouseEnterMovementDuration { get; set; }
-	[field: SerializeField] AnimationCurve MouseEnterMovementCurve    { get; set; }
-	[field: SerializeField] float          MouseExitMovementDuration  { get; set; }
-	[field: SerializeField] AnimationCurve MouseExitMovementCurve     { get; set; }
+	[field: SerializeField] float          DrawAnimationDuration       { get; set; }
+	[field: SerializeField] AnimationCurve DrawAnimationCurve          { get; set; }
+	[field: SerializeField] float          DiscardAnimationDuration    { get; set; }
+	[field: SerializeField] AnimationCurve DiscardAnimationCurve       { get; set; }
+	[field: SerializeField] float          MouseEnterAnimationDuration { get; set; }
+	[field: SerializeField] AnimationCurve MouseEnterAnimationCurve    { get; set; }
+	[field: SerializeField] float          MouseExitAnimationDuration  { get; set; }
+	[field: SerializeField] AnimationCurve MouseExitAnimationCurve     { get; set; }
+	[field: SerializeField] Vector3        DrawPileOffset              { get; set; }
+	[field: SerializeField] Vector3        DiscardPileOffset           { get; set; }
 
-	[field: SerializeField] TextMeshPro    TitleTextObject { get; set; }
-	[field: SerializeField] TextMeshPro    BodyTextObject  { get; set; }
-	[field: SerializeField] SpriteRenderer CardArtObject   { get; set; }
-	[field: SerializeField] SpriteRenderer CardBackObject  { get; set; }
+	[field: SerializeField] GameObject     CardGraphicsObject { get; set; }
+	[field: SerializeField] TextMeshPro    TitleTextObject    { get; set; }
+	[field: SerializeField] TextMeshPro    BodyTextObject     { get; set; }
+	[field: SerializeField] SpriteRenderer CardArtObject      { get; set; }
+	[field: SerializeField] SpriteRenderer CardBackObject     { get; set; }
 
-	public Vector3    PositionInHand { get; set; }
 	public Quaternion RotationInHand { get; set; }
 
-	IEnumerator StepTowardTargetCoroutine { get; set; }
+	IEnumerator AnimationStepCoroutine { get; set; }
 
 	void OnMouseEnter()
 	{
 		//TODO: expose to inspector
 		var dy = new Vector3(0, 50, -100);
-		MoveToTarget(PositionInHand + dy, quaternion.identity, MouseEnterMovementDuration, MouseEnterMovementCurve);
+		Animate(dy, quaternion.identity, MouseEnterAnimationDuration, MouseEnterAnimationCurve);
 	}
 
 	void OnMouseExit()
 	{
-		MoveToTarget(PositionInHand, RotationInHand, MouseExitMovementDuration, MouseExitMovementCurve);
+		Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
 	}
 
 	public void Draw()
 	{
-		//TODO: draw pile location?
-		MoveToTarget(PositionInHand, RotationInHand, DrawMovementDuration, DrawMovementCurve);
+		CardGraphicsObject.transform.localPosition = DrawPileOffset;
+		Animate(Vector3.zero, RotationInHand, DrawAnimationDuration, DrawAnimationCurve);
 	}
 
 	public void Discard()
 	{
-		//TODO: discard pile location
-		MoveToTarget(PositionInHand, RotationInHand, DiscardMovementDuration, DiscardMovementCurve);
+		CardGraphicsObject.transform.localPosition = DiscardPileOffset;
+		Animate(Vector3.zero, Quaternion.identity, DiscardAnimationDuration, DiscardAnimationCurve);
 	}
 
-	void MoveToTarget(Vector3        targetPosition,
-					  Quaternion     targetRotation,
-					  float          movementDuration,
-					  AnimationCurve movementCurve)
+	void Animate(Vector3        targetPosition,
+				 Quaternion     targetRotation,
+				 float          movementDuration,
+				 AnimationCurve movementCurve)
 	{
-		if (StepTowardTargetCoroutine != null)
+		if (AnimationStepCoroutine != null)
 		{
-			StopCoroutine(StepTowardTargetCoroutine);
+			StopCoroutine(AnimationStepCoroutine);
 		}
 
-		StepTowardTargetCoroutine = StepTowardTarget(targetPosition, targetRotation, movementDuration, movementCurve);
-		StartCoroutine(StepTowardTargetCoroutine);
+		AnimationStepCoroutine = AnimationStep(targetPosition, targetRotation, movementDuration, movementCurve);
+		StartCoroutine(AnimationStepCoroutine);
 	}
 
-	IEnumerator StepTowardTarget(Vector3        targetPosition,
-								 Quaternion     targetRotation,
-								 float          movementDuration,
-								 AnimationCurve movementCurve)
+	IEnumerator AnimationStep(Vector3        targetPosition,
+							  Quaternion     targetRotation,
+							  float          movementDuration,
+							  AnimationCurve movementCurve)
 	{
-		var t               = transform;
+		var t               = CardGraphicsObject.transform;
 		var initialPosition = t.localPosition;
 		var initialRotation = t.localRotation;
 		var initialTime     = Time.time;
