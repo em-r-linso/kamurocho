@@ -10,13 +10,14 @@ public class TweenManager : MonoBehaviour
 					  Vector3        targetPosition,
 					  Quaternion     targetRotation,
 					  float          tweenDuration,
-					  AnimationCurve tweenCurve)
+					  AnimationCurve tweenCurve,
+					  bool           isLocal = false)
 	{
 		// initialize the dictionary if this it the first time it's being used
 		Coroutines ??= new();
 
 		// create a new coroutine for this tween
-		var coroutine = TweenStep(transformToTween, targetPosition, targetRotation, tweenDuration, tweenCurve);
+		var coroutine = TweenStep(transformToTween, targetPosition, targetRotation, tweenDuration, tweenCurve, isLocal);
 
 		// if there's already a coroutine running for this transform, stop it and update the entry
 		if (Coroutines.ContainsKey(transformToTween))
@@ -39,22 +40,51 @@ public class TweenManager : MonoBehaviour
 						  Vector3        targetPosition,
 						  Quaternion     targetRotation,
 						  float          tweenDuration,
-						  AnimationCurve tweenCurve)
+						  AnimationCurve tweenCurve,
+						  bool           isLocal)
 	{
-		var initialPosition = transformToTween.localPosition;
-		var initialRotation = transformToTween.localRotation;
+		// start at the current time, which represents 0% tween completion
 		var initialTime     = Time.time;
-		var timeRatio       = 0f;
+		var tweenCompletion = 0f;
 
-		// tween until time is 1/1 (position ratio will also be 1/1)
-		while (timeRatio < 1f)
+		// set initial position/rotation
+		Vector3    initialPosition;
+		Quaternion initialRotation;
+		if (isLocal)
 		{
-			timeRatio = (Time.time - initialTime) / tweenDuration;
-			var positionRatio = tweenCurve.Evaluate(timeRatio);
+			initialPosition = transformToTween.localPosition;
+			initialRotation = transformToTween.localRotation;
+		}
+		else
+		{
+			initialPosition = transformToTween.position;
+			initialRotation = transformToTween.rotation;
+		}
 
-			transformToTween.localPosition = Vector3.Lerp(initialPosition, targetPosition, positionRatio);
-			transformToTween.localRotation = Quaternion.Lerp(initialRotation, targetRotation, positionRatio);
+		// tween until completion is 100&
+		while (tweenCompletion < 1f)
+		{
+			// calculate progress as ratio of completion
+			tweenCompletion = (Time.time - initialTime) / tweenDuration;
+			var positionRatio = tweenCurve.Evaluate(tweenCompletion);
 
+			// calculate new position/rotation with lerps
+			var position = Vector3.Lerp(initialPosition, targetPosition, positionRatio);
+			var rotation = Quaternion.Lerp(initialRotation, targetRotation, positionRatio);
+
+			// set the new position/rotation
+			if (isLocal)
+			{
+				transformToTween.localPosition = position;
+				transformToTween.localRotation = rotation;
+			}
+			else
+			{
+				transformToTween.position = position;
+				transformToTween.rotation = rotation;
+			}
+
+			// do it again next frame
 			yield return new WaitForEndOfFrame();
 		}
 

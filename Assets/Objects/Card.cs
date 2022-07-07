@@ -61,7 +61,8 @@ public class Card : MonoBehaviour
 						   MouseOverOffset,
 						   Quaternion.identity,
 						   MouseEnterAnimationDuration,
-						   MouseEnterAnimationCurve);
+						   MouseEnterAnimationCurve,
+						   true);
 	}
 
 	void OnMouseExit()
@@ -75,7 +76,8 @@ public class Card : MonoBehaviour
 						   Vector3.zero,
 						   RotationInHand,
 						   MouseExitAnimationDuration,
-						   MouseExitAnimationCurve);
+						   MouseExitAnimationCurve,
+						   true);
 	}
 
 	void OnMouseUp()
@@ -89,7 +91,8 @@ public class Card : MonoBehaviour
 						   Vector3.zero,
 						   RotationInHand,
 						   MouseExitAnimationDuration,
-						   MouseExitAnimationCurve);
+						   MouseExitAnimationCurve,
+						   true);
 		InputManager.IsBusy = false;
 		IsBeingDragged      = false;
 	}
@@ -101,7 +104,8 @@ public class Card : MonoBehaviour
 						   Vector3.zero,
 						   RotationInHand,
 						   DrawAnimationDuration,
-						   DrawAnimationCurve);
+						   DrawAnimationCurve,
+						   true);
 	}
 
 	public void Discard()
@@ -111,6 +115,7 @@ public class Card : MonoBehaviour
 						   Vector3.zero,
 						   Quaternion.identity,
 						   DiscardAnimationDuration,
-						   DiscardAnimationCurve);
+						   DiscardAnimationCurve,
+						   true);
 	}
 }
