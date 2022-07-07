@@ -149,7 +149,7 @@ RectTransform:
   m_GameObject: {fileID: 387159746}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.015, y: 0.015, z: 0.015}
+  m_LocalScale: {x: 0.012, y: 0.012, z: 0.012}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <CardPrefab>k__BackingField: {fileID: 7472005609626255584, guid: 0f520563603c7144baed1a36c8b39796, type: 3}
   <HandSize>k__BackingField: 5
-  <HandWidth>k__BackingField: 500
+  <HandWidth>k__BackingField: 700
   <CardMovementInterval>k__BackingField: 0.05
   <CardFanningFactor>k__BackingField: 0.05
   <CardRaiseFactor>k__BackingField: 20
@@ -289,7 +289,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

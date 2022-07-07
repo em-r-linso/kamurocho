@@ -45,7 +45,7 @@ public class Card : MonoBehaviour
 
 	public void Draw()
 	{
-		CardGraphicsObject.transform.localPosition = DrawPileOffset;
+		CardGraphicsObject.transform.position = DrawPileOffset + new Vector3(0, 0, transform.localPosition.z);
 		Animate(Vector3.zero, RotationInHand, DrawAnimationDuration, DrawAnimationCurve);
 	}
 
