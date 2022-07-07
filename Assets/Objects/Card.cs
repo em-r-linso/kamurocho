@@ -1,5 +1,4 @@
 using TMPro;
-using Unity.Mathematics;
 using UnityEngine;
 
 public class Card : MonoBehaviour
@@ -37,6 +36,10 @@ public class Card : MonoBehaviour
 
 	void OnMouseDown()
 	{
+		// snap to MouseOver position/rotation in case OnMouseEnter tween isn't done yet
+		CardGraphicsObject.transform.localPosition = MouseOverOffset;
+		CardGraphicsObject.transform.localRotation = Quaternion.identity;
+
 		MouseOffset         = CardGraphicsObject.transform.position - InputManager.MousePosition;
 		InputManager.IsBusy = true;
 		IsBeingDragged      = true;
@@ -56,7 +59,7 @@ public class Card : MonoBehaviour
 
 		TweenManager.Tween(CardGraphicsObject.transform,
 						   MouseOverOffset,
-						   quaternion.identity,
+						   Quaternion.identity,
 						   MouseEnterAnimationDuration,
 						   MouseEnterAnimationCurve);
 	}
