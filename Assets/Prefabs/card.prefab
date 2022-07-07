@@ -719,6 +719,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   <DrawPileOffset>k__BackingField: {x: -10, y: -1, z: 0}
   <DiscardPileOffset>k__BackingField: {x: 500, y: 100, z: 0}
+  <MouseOverOffset>k__BackingField: {x: 0, y: 25, z: -100}
   <CardGraphicsObject>k__BackingField: {fileID: 6771684281612597842}
   <TitleTextObject>k__BackingField: {fileID: 1197216295039416659}
   <BodyTextObject>k__BackingField: {fileID: 8471782189167250741}

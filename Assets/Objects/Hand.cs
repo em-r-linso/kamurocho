@@ -12,6 +12,8 @@ public class Hand : MonoBehaviour
 	[field: SerializeField] AnimationCurve CardFanCurve          { get; set; }
 	[field: SerializeField] float          CardEdgeColliderWidth { get; set; }
 
+	[field: SerializeField] InputManager InputManager { get; set; }
+
 	void Start()
 	{
 		StartCoroutine(MoveCards());
@@ -48,6 +50,8 @@ public class Hand : MonoBehaviour
 			{
 				c.size = new(cardSpacing, c.size.y);
 			}
+
+			card.InputManager = InputManager;
 
 			card.Draw();
 

@@ -20,6 +20,7 @@ public class Card : MonoBehaviour
 	[field: SerializeField] AnimationCurve MouseExitAnimationCurve     { get; set; }
 	[field: SerializeField] Vector3        DrawPileOffset              { get; set; }
 	[field: SerializeField] Vector3        DiscardPileOffset           { get; set; }
+	[field: SerializeField] Vector3        MouseOverOffset             { get; set; }
 
 	[field: SerializeField] GameObject     CardGraphicsObject { get; set; }
 	[field: SerializeField] TextMeshPro    TitleTextObject    { get; set; }
@@ -27,48 +28,56 @@ public class Card : MonoBehaviour
 	[field: SerializeField] SpriteRenderer CardArtObject      { get; set; }
 	[field: SerializeField] SpriteRenderer CardBackObject     { get; set; }
 
-	public Quaternion RotationInHand { get; set; }
+	public Quaternion   RotationInHand { get; set; }
+	public InputManager InputManager   { get; set; }
 
 	IEnumerator AnimationStepCoroutine { get; set; }
 	bool        IsBeingDragged         { get; set; }
-
-	Vector3 MousePosition
-	{
-		get => Camera.main!.ScreenToWorldPoint(Input.mousePosition);
-	}
 
 	Vector3 MouseOffset { get; set; }
 
 	void OnMouseDown()
 	{
-		MouseOffset    = CardGraphicsObject.transform.position - MousePosition;
-		IsBeingDragged = true;
+		MouseOffset         = CardGraphicsObject.transform.position - InputManager.MousePosition;
+		InputManager.IsBusy = true;
+		IsBeingDragged      = true;
 	}
 
 	void OnMouseDrag()
 	{
-		CardGraphicsObject.transform.position = MousePosition + MouseOffset;
+		CardGraphicsObject.transform.position = InputManager.MousePosition + MouseOffset;
 	}
 
 	void OnMouseEnter()
 	{
-		//TODO: expose to inspector
-		var dy = new Vector3(0, 50, -100);
-		Animate(dy, quaternion.identity, MouseEnterAnimationDuration, MouseEnterAnimationCurve);
+		if (InputManager.IsBusy)
+		{
+			return;
+		}
+
+		Animate(MouseOverOffset, quaternion.identity, MouseEnterAnimationDuration, MouseEnterAnimationCurve);
 	}
 
 	void OnMouseExit()
 	{
-		if (!IsBeingDragged)
+		if (IsBeingDragged)
 		{
-			Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
+			return;
 		}
+
+		Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
 	}
 
 	void OnMouseUp()
 	{
+		if (!IsBeingDragged)
+		{
+			return;
+		}
+
 		Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
-		IsBeingDragged = false;
+		InputManager.IsBusy = false;
+		IsBeingDragged      = false;
 	}
 
 	public void Draw()
