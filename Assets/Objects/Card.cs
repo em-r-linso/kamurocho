@@ -30,6 +30,25 @@ public class Card : MonoBehaviour
 	public Quaternion RotationInHand { get; set; }
 
 	IEnumerator AnimationStepCoroutine { get; set; }
+	bool        IsBeingDragged         { get; set; }
+
+	Vector3 MousePosition
+	{
+		get => Camera.main!.ScreenToWorldPoint(Input.mousePosition);
+	}
+
+	Vector3 MouseOffset { get; set; }
+
+	void OnMouseDown()
+	{
+		MouseOffset    = CardGraphicsObject.transform.position - MousePosition;
+		IsBeingDragged = true;
+	}
+
+	void OnMouseDrag()
+	{
+		CardGraphicsObject.transform.position = MousePosition + MouseOffset;
+	}
 
 	void OnMouseEnter()
 	{
@@ -40,7 +59,16 @@ public class Card : MonoBehaviour
 
 	void OnMouseExit()
 	{
+		if (!IsBeingDragged)
+		{
+			Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
+		}
+	}
+
+	void OnMouseUp()
+	{
 		Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
+		IsBeingDragged = false;
 	}
 
 	public void Draw()

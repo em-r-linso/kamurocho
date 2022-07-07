@@ -173,11 +173,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <CardPrefab>k__BackingField: {fileID: 7472005609626255584, guid: 0f520563603c7144baed1a36c8b39796, type: 3}
-  <HandSize>k__BackingField: 5
+  <HandSize>k__BackingField: 10
   <HandWidth>k__BackingField: 700
   <CardMovementInterval>k__BackingField: 0.05
   <CardFanningFactor>k__BackingField: 0.05
-  <CardRaiseFactor>k__BackingField: 20
+  <CardRaiseFactor>k__BackingField: 50
   <CardFanCurve>k__BackingField:
     serializedVersion: 2
     m_Curve:
