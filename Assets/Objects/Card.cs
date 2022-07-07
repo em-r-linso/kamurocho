@@ -1,4 +1,3 @@
-using System.Collections;
 using TMPro;
 using Unity.Mathematics;
 using UnityEngine;
@@ -30,9 +29,9 @@ public class Card : MonoBehaviour
 
 	public Quaternion   RotationInHand { get; set; }
 	public InputManager InputManager   { get; set; }
+	public TweenManager TweenManager   { get; set; }
 
-	IEnumerator AnimationStepCoroutine { get; set; }
-	bool        IsBeingDragged         { get; set; }
+	bool IsBeingDragged { get; set; }
 
 	Vector3 MouseOffset { get; set; }
 
@@ -55,7 +54,11 @@ public class Card : MonoBehaviour
 			return;
 		}
 
-		Animate(MouseOverOffset, quaternion.identity, MouseEnterAnimationDuration, MouseEnterAnimationCurve);
+		TweenManager.Tween(CardGraphicsObject.transform,
+						   MouseOverOffset,
+						   quaternion.identity,
+						   MouseEnterAnimationDuration,
+						   MouseEnterAnimationCurve);
 	}
 
 	void OnMouseExit()
@@ -65,7 +68,11 @@ public class Card : MonoBehaviour
 			return;
 		}
 
-		Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
+		TweenManager.Tween(CardGraphicsObject.transform,
+						   Vector3.zero,
+						   RotationInHand,
+						   MouseExitAnimationDuration,
+						   MouseExitAnimationCurve);
 	}
 
 	void OnMouseUp()
@@ -75,7 +82,11 @@ public class Card : MonoBehaviour
 			return;
 		}
 
-		Animate(Vector3.zero, RotationInHand, MouseExitAnimationDuration, MouseExitAnimationCurve);
+		TweenManager.Tween(CardGraphicsObject.transform,
+						   Vector3.zero,
+						   RotationInHand,
+						   MouseExitAnimationDuration,
+						   MouseExitAnimationCurve);
 		InputManager.IsBusy = false;
 		IsBeingDragged      = false;
 	}
@@ -83,47 +94,20 @@ public class Card : MonoBehaviour
 	public void Draw()
 	{
 		CardGraphicsObject.transform.position = DrawPileOffset + new Vector3(0, 0, transform.localPosition.z);
-		Animate(Vector3.zero, RotationInHand, DrawAnimationDuration, DrawAnimationCurve);
+		TweenManager.Tween(CardGraphicsObject.transform,
+						   Vector3.zero,
+						   RotationInHand,
+						   DrawAnimationDuration,
+						   DrawAnimationCurve);
 	}
 
 	public void Discard()
 	{
 		CardGraphicsObject.transform.localPosition = DiscardPileOffset;
-		Animate(Vector3.zero, Quaternion.identity, DiscardAnimationDuration, DiscardAnimationCurve);
-	}
-
-	void Animate(Vector3        targetPosition,
-				 Quaternion     targetRotation,
-				 float          movementDuration,
-				 AnimationCurve movementCurve)
-	{
-		if (AnimationStepCoroutine != null)
-		{
-			StopCoroutine(AnimationStepCoroutine);
-		}
-
-		AnimationStepCoroutine = AnimationStep(targetPosition, targetRotation, movementDuration, movementCurve);
-		StartCoroutine(AnimationStepCoroutine);
-	}
-
-	IEnumerator AnimationStep(Vector3        targetPosition,
-							  Quaternion     targetRotation,
-							  float          movementDuration,
-							  AnimationCurve movementCurve)
-	{
-		var t               = CardGraphicsObject.transform;
-		var initialPosition = t.localPosition;
-		var initialRotation = t.localRotation;
-		var initialTime     = Time.time;
-		var ratio           = 0f;
-
-		while (ratio < 1f)
-		{
-			ratio           = (Time.time - initialTime) / movementDuration;
-			t.localPosition = Vector3.Lerp(initialPosition, targetPosition, movementCurve.Evaluate(ratio));
-			t.localRotation = Quaternion.Lerp(initialRotation, targetRotation, movementCurve.Evaluate(ratio));
-
-			yield return new WaitForEndOfFrame();
-		}
+		TweenManager.Tween(CardGraphicsObject.transform,
+						   Vector3.zero,
+						   Quaternion.identity,
+						   DiscardAnimationDuration,
+						   DiscardAnimationCurve);
 	}
 }

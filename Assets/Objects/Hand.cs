@@ -13,6 +13,7 @@ public class Hand : MonoBehaviour
 	[field: SerializeField] float          CardEdgeColliderWidth { get; set; }
 
 	[field: SerializeField] InputManager InputManager { get; set; }
+	[field: SerializeField] TweenManager TweenManager { get; set; }
 
 	void Start()
 	{
@@ -52,6 +53,7 @@ public class Hand : MonoBehaviour
 			}
 
 			card.InputManager = InputManager;
+			card.TweenManager = TweenManager;
 
 			card.Draw();
 

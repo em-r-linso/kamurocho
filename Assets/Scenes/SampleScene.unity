@@ -133,8 +133,9 @@ GameObject:
   m_Component:
   - component: {fileID: 232792230}
   - component: {fileID: 232792229}
+  - component: {fileID: 232792231}
   m_Layer: 0
-  m_Name: input manager
+  m_Name: _managers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -166,8 +167,20 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &232792231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 232792228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1ba096a07844da4b761b729bc28d798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &387159746
 GameObject:
   m_ObjectHideFlags: 0
@@ -198,7 +211,7 @@ RectTransform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -258,6 +271,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   <CardEdgeColliderWidth>k__BackingField: 100
   <InputManager>k__BackingField: {fileID: 232792229}
+  <TweenManager>k__BackingField: {fileID: 232792231}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,5 +354,5 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
